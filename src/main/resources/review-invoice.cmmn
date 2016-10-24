@@ -9,9 +9,6 @@
       <cmmn:planItem id="PlanItem_1ux7yud" definitionRef="HumanTask_1hixfsa">
         <cmmn:itemControl id="PlanItemControl_1qlxj3z">
           <cmmn:repetitionRule id="RepetitionRule_1nbpi7q" />
-          <cmmn:requiredRule id="RequiredRule_1kbrh54">
-            <cmmn:condition id="Expression_03re9zc">${uploadInvoice}</cmmn:condition>
-          </cmmn:requiredRule>
           <cmmn:manualActivationRule id="ManualActivationRule_0sfn1eh">
             <cmmn:condition id="Expression_1uql53s">${true}</cmmn:condition>
           </cmmn:manualActivationRule>

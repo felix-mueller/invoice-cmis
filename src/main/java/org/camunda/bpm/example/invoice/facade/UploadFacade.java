@@ -1,10 +1,7 @@
 package org.camunda.bpm.example.invoice.facade;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -80,48 +77,17 @@ public class UploadFacade {
 			return Response.status(200).entity(embedLink).build();
 		}
 		
-		// Parse Content-Disposition header to get the original file name
 		private String parseFileName(MultivaluedMap<String, String> headers) {
 
 			String[] contentDispositionHeader = headers.getFirst("Content-Disposition").split(";");
 
 			for (String name : contentDispositionHeader) {
-
 				if ((name.trim().startsWith("filename"))) {
-
 					String[] tmp = name.split("=");
-
 					String fileName = tmp[1].trim().replaceAll("\"","");
-
 					return fileName;
 				}
 			}
 			return "randomName";
 		}
-
-		// save uploaded file to a defined location on the server
-		private void saveFile(InputStream uploadedInputStream,
-			String serverLocation) {
-
-			try {
-				OutputStream outpuStream = new FileOutputStream(new File(serverLocation));
-				int read = 0;
-				byte[] bytes = new byte[1024];
-
-				outpuStream = new FileOutputStream(new File(serverLocation));
-				while ((read = uploadedInputStream.read(bytes)) != -1) {
-					outpuStream.write(bytes, 0, read);
-				}
-				outpuStream.flush();
-				outpuStream.close();
-			} catch (IOException e) {
-
-				e.printStackTrace();
-			}
-		}
 	}
-
-
-
-
-

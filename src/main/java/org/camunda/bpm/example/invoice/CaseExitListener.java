@@ -14,10 +14,6 @@ public class CaseExitListener implements CaseExecutionListener {
 		for (CaseExecution execution: executions) {
 			delegateExecution.getProcessEngineServices().getCaseService().disableCaseExecution(execution.getId());
 		}
-		executions = delegateExecution.getProcessEngineServices().getCaseService().createCaseExecutionQuery().active().list();
-		for (CaseExecution execution: executions) {
-			delegateExecution.getProcessEngineServices().getCaseService().disableCaseExecution(execution.getId());
-		}
 	}
 
 }
