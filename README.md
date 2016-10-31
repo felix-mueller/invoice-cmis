@@ -1,18 +1,14 @@
-# Box.com Invoice Demo Application Showcase
+# CMIS Integration - Invoice Demo Application Showcase
 
-This is the Box.com invoice demo application showcase.
+This is the CMIS integration invoice demo application showcase.
 
 ## Development Setup
+In order to run this demo you will need a document management system which can be integrated using the CMIS (Content Management Interoperability Services) standard.
+If you just want to hack this demo:
+1. Download the chemistry-opencmis-dist-1.0.0-server-webapps
+2. Deploy it on a web server
+3. Change config.properties to point to this server
+4. Deploy process application on Camunda
 
-If you want to hack this demo, type
-
-```bash
-mvn jetty:run -Pdevelop
-```
-
-Open your browser at [http://localhost:8080/camunda](http://localhost:8080/camunda).
-
-
-If you change the HTML/Javascript forms you can just refresh (F5) the page.
-
-If you change the Java code you have to restart the server.
+## Tested on
+This demo was tested on Camunda 7.6 EE alpha5 with chemistry-opencmis-dist-1.0.0-server-webapps.
