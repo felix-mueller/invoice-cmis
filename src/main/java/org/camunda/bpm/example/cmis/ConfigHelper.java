@@ -1,4 +1,4 @@
-package org.camunda.bpm.example.box;
+package org.camunda.bpm.example.cmis;
 
 import java.io.File;
 import java.io.FileNotFoundException;

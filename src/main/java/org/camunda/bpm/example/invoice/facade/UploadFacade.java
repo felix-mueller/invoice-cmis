@@ -2,6 +2,7 @@ package org.camunda.bpm.example.invoice.facade;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 import java.util.Map;
 
@@ -10,11 +11,13 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 import javax.ws.rs.core.Response;
+import javax.ws.rs.core.StreamingOutput;
 
 import org.camunda.bpm.engine.impl.util.json.JSONObject;
-import org.camunda.bpm.example.box.BoxConnector;
+import org.camunda.bpm.example.cmis.CMISConnector;
 import org.jboss.resteasy.plugins.providers.multipart.InputPart;
 import org.jboss.resteasy.plugins.providers.multipart.MultipartFormDataInput;
 
@@ -26,13 +29,13 @@ public class UploadFacade {
 		public Response uploadFile(MultipartFormDataInput input) throws Exception {
 			String uniqueID = "";
 			String fileName = "";
-			String boxfolder = null;
+			String folderName = null;
 			Boolean success = true;
 			
 			Map<String, List<InputPart>> formParts = input.getFormDataMap();
-			List<InputPart> boxfolderParts = formParts.get("boxfolder");
-			for (InputPart inputPart : boxfolderParts) {
-				boxfolder = inputPart.getBodyAsString();
+			List<InputPart> folderNameParts = formParts.get("folderName");
+			for (InputPart inputPart : folderNameParts) {
+				folderName = inputPart.getBodyAsString();
 			}
 			List<InputPart> inPart = formParts.get("file");
 
@@ -46,11 +49,10 @@ public class UploadFacade {
 
 					// Handle the body of that part with an InputStream
 					InputStream inputStream = inputPart.getBody(InputStream.class, null);
-
-					fileName = "/" + fileName;
 					
-					BoxConnector bx = new BoxConnector();
-					JSONObject jsonObject = bx.upload(inputStream, fileName, boxfolder);
+					CMISConnector cmis = new CMISConnector();
+					JSONObject jsonObject = new JSONObject();
+					jsonObject = cmis.upload(inputStream, fileName, folderName);
 					uniqueID = jsonObject.getString("uniqueID");
 					if (jsonObject.getBoolean("success") == false) {
 						success = false;
@@ -70,11 +72,17 @@ public class UploadFacade {
 		}
 		
 		@GET
-		@Path("/embedLink")
-		public Response getEmbedLink(@QueryParam("fileId") String fileId,@QueryParam("boxfoldername") String boxfoldername) {
-			BoxConnector bx = new BoxConnector();
-			String embedLink = bx.getEmbedLink(boxfoldername, fileId);
-			return Response.status(200).entity(embedLink).build();
+		@Path("/filePreview")
+		public Response getFilePreview(@QueryParam("inline") Boolean inline,@QueryParam("fileId") String fileId, @QueryParam("fileName") String fileName) throws IOException {
+			CMISConnector cmis = new CMISConnector();
+			byte[] docStream = cmis.downloadFile(fileId);
+			String contentDisposition = "attachment; filename = "+fileName;
+			if (inline!=null && inline==true) {
+				contentDisposition="inline; filename = "+fileName;
+				return Response.ok(docStream, "application/pdf").header("content-disposition",contentDisposition).build();
+			} else {
+				return Response.ok(docStream, MediaType.APPLICATION_OCTET_STREAM).header("content-disposition",contentDisposition).build();
+			}
 		}
 		
 		private String parseFileName(MultivaluedMap<String, String> headers) {

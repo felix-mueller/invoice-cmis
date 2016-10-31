@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.delegate.DelegateExecution;
 import org.camunda.bpm.engine.delegate.JavaDelegate;
-import org.camunda.bpm.engine.variable.value.FileValue;
 
 /**
  * <p>This is an empty service implementation illustrating how to use a plain
@@ -30,14 +29,12 @@ public class ArchiveInvoiceService implements JavaDelegate {
   public void execute(DelegateExecution execution) throws Exception {
 
     Boolean shouldFail = (Boolean) execution.getVariable("shouldFail");
-    FileValue invoiceDocumentVar  = execution.getVariableTyped("invoiceDocument");
-
+    
     if(shouldFail != null && shouldFail) {
       throw new ProcessEngineException("Could not archive invoice...");
     }
     else {
-      LOGGER.info("\n\n  ... Now archiving invoice "+execution.getVariable("invoiceNumber")
-          +", filename: "+invoiceDocumentVar.getFilename()+" \n\n");
+      LOGGER.info("\n\n  ... Now archiving invoice "+execution.getVariable("invoiceNumber") +" \n\n");
     }
 
   }
