@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.3.0">
-  <cmmn:case id="VerifyInvoiceCase" name="Verify Invoice">
-    <cmmn:casePlanModel id="CasePlanModel_1" name="Verify Invoice">
+<cmmn:definitions xmlns:dc="http://www.omg.org/spec/CMMN/20151109/DC" xmlns:di="http://www.omg.org/spec/CMMN/20151109/DI" xmlns:cmmndi="http://www.omg.org/spec/CMMN/20151109/CMMNDI" xmlns:cmmn="http://www.omg.org/spec/CMMN/20151109/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:camunda="http://camunda.org/schema/1.0/cmmn" id="Test" targetNamespace="http://bpmn.io/schema/cmmn" exporter="Camunda Modeler" exporterVersion="1.4.0">
+  <cmmn:case id="VerifyInvoiceCaseCMIS" name="Verify Invoice CMIS">
+    <cmmn:casePlanModel id="verify-invoice-cmis" name="Verify Invoice CMIS">
       <cmmn:planItem id="PlanItem_1" definitionRef="HumanTask_1eg9tb8" />
       <cmmn:planItem id="PlanItem_0omhlax" definitionRef="HumanTask_1uw9cty">
         <cmmn:entryCriterion id="EntryCriterion_05s9w0g" sentryRef="Sentry_0730j8g" />
@@ -35,8 +35,8 @@
   <cmmndi:CMMNDI>
     <cmmndi:CMMNDiagram id="_5a66685b-5f57-4e2f-b1d1-acca4fae04b2">
       <cmmndi:Size xsi:type="dc:Dimension" width="500" height="500" />
-      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="CasePlanModel_1">
-        <dc:Bounds x="1" y="19" width="616" height="352" />
+      <cmmndi:CMMNShape id="DI_CasePlanModel_1" cmmnElementRef="verify-invoice-cmis">
+        <dc:Bounds x="1" y="20" width="466" height="351" />
         <cmmndi:CMMNLabel />
       </cmmndi:CMMNShape>
       <cmmndi:CMMNShape id="PlanItem_1dvg75o_di" cmmnElementRef="PlanItem_1">
@@ -53,7 +53,7 @@
         <di:waypoint xsi:type="dc:Point" x="218" y="230" />
         <di:waypoint xsi:type="dc:Point" x="267" y="230" />
         <cmmndi:CMMNLabel>
-          <dc:Bounds x="204" y="149.5" width="90" height="20" />
+          <dc:Bounds x="204" y="150" width="90" height="20" />
         </cmmndi:CMMNLabel>
       </cmmndi:CMMNEdge>
       <cmmndi:CMMNShape id="PlanItem_08xksal_di" cmmnElementRef="PlanItem_0omhlax">

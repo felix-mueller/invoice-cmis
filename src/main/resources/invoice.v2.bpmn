@@ -12,7 +12,7 @@
       <lane id="teamAssistant" name="Team Assistant">
         <flowNodeRef>assignApprover</flowNodeRef>
         <flowNodeRef>StartEvent_1</flowNodeRef>
-        <flowNodeRef>verifyInvoice</flowNodeRef>
+        <flowNodeRef>verifyInvoiceCMIS</flowNodeRef>
         <flowNodeRef>invoiceNotProcessed</flowNodeRef>
         <flowNodeRef>reviewSuccessful_gw</flowNodeRef>
       </lane>
@@ -31,10 +31,10 @@
       <outgoing>reviewNotSuccessful</outgoing>
       <outgoing>reviewSuccessful</outgoing>
     </exclusiveGateway>
-    <sequenceFlow id="invoiceNotApproved" name="no" isImmediate="true" sourceRef="invoice_approved" targetRef="verifyInvoice">
+    <sequenceFlow id="invoiceNotApproved" name="no" isImmediate="true" sourceRef="invoice_approved" targetRef="verifyInvoiceCMIS">
       <conditionExpression xsi:type="tFormalExpression" id="conditionExpression_56">${!approved}</conditionExpression>
     </sequenceFlow>
-    <sequenceFlow id="sequenceFlow_183" isImmediate="true" sourceRef="verifyInvoice" targetRef="reviewSuccessful_gw" />
+    <sequenceFlow id="sequenceFlow_183" isImmediate="true" sourceRef="verifyInvoiceCMIS" targetRef="reviewSuccessful_gw" />
     <sequenceFlow id="reviewNotSuccessful" name="don&#39;t process invoice" isImmediate="true" sourceRef="reviewSuccessful_gw" targetRef="invoiceNotProcessed">
       <conditionExpression xsi:type="tFormalExpression">${!clarified}</conditionExpression>
     </sequenceFlow>
@@ -50,7 +50,7 @@
       <outgoing>SequenceFlow_1</outgoing>
     </startEvent>
     <sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="assignApprover" />
-    <callActivity id="verifyInvoice" name="Verify Invoice" camunda:caseRef="VerifyInvoiceCase">
+    <callActivity id="verifyInvoiceCMIS" name="Verify Invoice" camunda:caseRef="VerifyInvoiceCaseCMIS">
       <extensionElements>
         <camunda:in source="invoiceDocument" target="invoiceDocument" />
         <camunda:out source="clarified" target="clarified" />
@@ -250,7 +250,7 @@
           <omgdc:Bounds x="978" y="497" width="90" height="6" />
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
-      <bpmndi:BPMNShape id="Rechnung_kl_ren_148_gui" bpmnElement="verifyInvoice">
+      <bpmndi:BPMNShape id="Rechnung_kl_ren_148_gui" bpmnElement="verifyInvoiceCMIS">
         <omgdc:Bounds x="548" y="52" width="100" height="80" />
       </bpmndi:BPMNShape>
     </bpmndi:BPMNPlane>
